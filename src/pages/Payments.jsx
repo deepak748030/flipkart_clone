@@ -1,23 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Payments() {
-    const handlePayment = () => {
-        const phonePeURL = 'phonepe://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&url=&mc=8099&mode=02&purpose=00&orgid=159028&sign=MEYCIQCgpTe2xeoNfYGFQ8SsqsibjjRtneNFQFlmLfZYC/vC5wIhANeXald38G4FMySMNEoGC0/zfwLlPGfpNRrDrwF7d3Ex&tn=5144278425';
+    const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
 
-        // Create an invisible iframe to trigger the PhonePe deep link
+    // Define payment URLs
+    const phonePeUrl = 'phonepe://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&mc=8099&orgid=159028';
+    const upiUrl = 'upi://pay?pa=sbipmopad.022211900285222-yc017550@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=3830789615&mc=8099&orgid=159028';
+    const paytmUrl = 'paytmmp://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=5731067652&mc=8099&orgid=159028';
+    const googlePayUrl = 'tez://upi/pay?pa=sbipmopad.022211900285222-ym543765@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=8138823478&mc=8099&orgid=159028';
+
+    const handlePayment = () => {
+        let paymentURL;
+
+        // Determine the payment URL based on the selected payment method
+        switch (selectedPayment) {
+            case 'PhonePe':
+                paymentURL = phonePeUrl;
+                break;
+            case 'UPI':
+                paymentURL = upiUrl;
+                break;
+            case 'Paytm':
+                paymentURL = paytmUrl;
+                break;
+            case 'Google Pay':
+                paymentURL = googlePayUrl;
+                break;
+            default:
+                alert('Please select a payment method');
+                return;
+        }
+
+        // Create an invisible iframe to trigger the payment deep link
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
-        iframe.src = phonePeURL;
+        iframe.src = paymentURL;
         document.body.appendChild(iframe);
 
-        // Fallback: If PhonePe is not installed, redirect to Play Store after 2 seconds
+        // Fallback: If the payment app is not installed, redirect to Play Store after 2 seconds
         setTimeout(() => {
-            window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app';
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app'; // Change this based on the payment app
         }, 2000);
     };
 
     return (
-        <div className='px-3 mb-4'>
+        <div className='px-3'>
             {/* Header with back icon and title */}
             <div className='d-flex gap-4 fs-4 my-3 align-items-center'>
                 <div style={{ cursor: 'pointer' }}>
@@ -32,11 +59,43 @@ function Payments() {
             </div>
 
             <div className='fw-bold d-flex flex-column gap-2'>
-                <div className='p-3 border rounded' style={{ cursor: 'pointer' }} ><img src='../phonePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} /> Phonepe </div>
-                <div className='p-3 border rounded' style={{ cursor: 'pointer' }} ><img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} /> Paytm </div>
-                <div className='p-3 border rounded' style={{ cursor: 'pointer' }} ><img src='../googlePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} /> Google Pay </div>
-                <div className='p-3 border rounded' style={{ cursor: 'pointer' }} ><img src='../bhim.png' className='mx-2 fs-5' style={{ height: '2rem' }} /> BHIM UPI </div>
+                {/* PhonePe Option */}
+                <div
+                    className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setSelectedPayment('PhonePe')}
+                >
+                    <img src='../phonePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="PhonePe" /> PhonePe
+                </div>
+
+                {/* UPI Option */}
+                <div
+                    className={`p-3 border rounded ${selectedPayment === 'UPI' ? 'bg-light border border-black' : ''}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setSelectedPayment('UPI')}
+                >
+                    <img src='../bhim.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="UPI" /> UPI
+                </div>
+
+                {/* Paytm Option */}
+                <div
+                    className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setSelectedPayment('Paytm')}
+                >
+                    <img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Paytm" /> Paytm
+                </div>
+
+                {/* Google Pay Option */}
+                <div
+                    className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setSelectedPayment('Google Pay')}
+                >
+                    <img src='../googlePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Google Pay" /> Google Pay
+                </div>
             </div>
+
 
             {/* Price Details */}
             <div className='mt-4'>
