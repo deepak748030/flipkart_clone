@@ -51,6 +51,11 @@
   z-index: 1;
 }
 
+.delivery {
+  font-size: 0.9rem;
+
+}
+
 @media (max-width: 768px) {
   .add-line {
     width: 30%;
@@ -70,4 +75,18 @@
   .add-line {
     width: 50%;
   }
+
+  .delivery {
+    font-size: 0.7rem;
+    /* Smaller font size for small screens */
+  }
+
+  .productPage_icons {
+    height: 1.4rem;
+  }
+
+  .productPage_icons_text {
+    font-size: .8rem;
+  }
+
 }

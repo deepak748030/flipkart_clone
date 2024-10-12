@@ -208,9 +208,9 @@ function Card() {
                                     <h5 className="card-price">{card.additionalPrice}</h5>
                                     <img src="assured.png" style={{ height: '1.4rem' }} alt="Assured" />
                                 </div>
-                                <p className="text text-center p-2" style={{ fontSize: '.9rem' }}>
+                                <div className=" delivery text text-center p-2 text-muted " >
                                     Free Delivery in Two Days
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>

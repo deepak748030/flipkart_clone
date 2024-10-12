@@ -2,11 +2,12 @@ import React from 'react';
 import { useParams } from 'react-router-dom'; // Import useParams
 import Navbar from '../components/Navbar';
 import Slider from '../components/Slider';
+import CountdownTimer from '../components/CountdownTimer'; // Import CountdownTimer
 import { useNavigate } from 'react-router-dom';
 
 function ProductPage() {
     const { id } = useParams(); // Destructure id from params
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
         <div style={{
@@ -24,27 +25,26 @@ function ProductPage() {
                         Amazfit GTR 3 Pro Smart Watch
                     </div>
                     <img src='../fassured.png' alt="F-Assured" />
-                    <div className='mt-2 fw-bold fs-4'>
-                        <span className='text text-success '>90% off</span> 10999 Rs 399
+                    <div className='mt-2  fs-5'>
+                        <span className='fw-bold text text-success '>90% off</span> <span className='text-muted text-decoration-line-through fs-5'>10999</span>  ₹399
                     </div>
                 </div>
 
-                <div className='text-muted text-center border fw-bold p-3 fs-5'>
-                    Offer ends in <span className='text text-danger'>01min 23Sec</span>
-                </div>
+                {/* Countdown Timer */}
+                <CountdownTimer />
 
                 <div className='d-flex border p-4 justify-content-between align-items-center'>
-                    <div className='text text-center'>
-                        <img src='http://stvoffers.shop/assets/images/replacement.png' alt="Replacement" />
-                        <div className='mt-2'>7 days Replacement</div>
+                    <div className='text text-center '>
+                        <img src='http://stvoffers.shop/assets/images/replacement.png' alt="Replacement" className='productPage_icons' />
+                        <div className='mt-2 productPage_icons_text'>7 days Replacement</div>
                     </div>
                     <div className='text text-center'>
-                        <img src='http://stvoffers.shop/assets/images/non-cod.png' alt="No COD" />
-                        <div className='mt-2'>No Cash on Delivery</div>
+                        <img src='http://stvoffers.shop/assets/images/non-cod.png' alt="No COD" className='productPage_icons' />
+                        <div className='mt-2 productPage_icons_text'>No Cash on Delivery</div>
                     </div>
                     <div className='text text-center'>
-                        <img src='../fassured.png' alt="F-Assured" />
-                        <div className='mt-2'>Plus (F-Assured)</div>
+                        <img src='../fassured.png' alt="F-Assured" className='productPage_icons' />
+                        <div className='mt-2  productPage_icons_text'>Plus (F-Assured)</div>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@ function ProductPage() {
                     cursor: 'pointer'
                 }} onClick={() => {
                     navigate('/add');
-                    console.log('hi')
+                    console.log('hi');
                 }} >
                     Add to Cart
                 </button>
@@ -78,7 +78,7 @@ function ProductPage() {
                     padding: '1rem',
                     fontSize: '1.1rem',
                     cursor: 'pointer'
-                }} onClick={() => { navigate('/add') }} >
+                }} onClick={() => { navigate('/payment'); }} >
                     Buy Now
                 </button>
             </div>

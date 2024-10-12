@@ -27,7 +27,7 @@ const Address = () => {
     };
 
     return (
-        <div className="address-form-container p-4" style={{ paddingBottom: '70px' }}>
+        <div className="address-form-container p-4 mb-5" style={{ paddingBottom: '70px' }}>
             <div className="header-container mb-3">
                 <div className="row align-items-center">
                     <div className="col-1">
@@ -44,6 +44,11 @@ const Address = () => {
             </div>
 
             <ProductStatus />
+            <div className='d-flex justify-content-center my-3'>
+                <img src='../discount.png' style={{
+                    height: '8rem'
+                }} />
+            </div>
 
             <div className="form-container">
                 <form onSubmit={handleSubmit}>
@@ -161,7 +166,7 @@ const Address = () => {
                 color: 'white',
                 fontSize: '1.2rem'
             }} onClick={handleSubmit}>
-                Save Address
+                Payment
             </button>
         </div>
     );
