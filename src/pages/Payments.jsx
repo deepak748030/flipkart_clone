@@ -141,7 +141,9 @@ function Payments() {
                     <div style={{ textDecoration: 'line-through', color: 'grey' }}>₹12499</div>
                     <div style={{ color: '#fb641b', fontWeight: 'bold' }}>₹599</div>
                 </div>
-                <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }} onClick={handlePayment}>
+                <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }}
+                // onClick={handlePayment}
+                >
                     Order Now
                 </button>
             </div>
