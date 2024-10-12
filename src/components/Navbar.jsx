@@ -34,17 +34,25 @@ function Navbar({ product }) {
                 </div>
 
                 {/* Search and cart icons container */}
-                <div className='d-flex align-items-center'>
-                    <i className="bi bi-search" style={{
+                <div className='d-flex align-items-center justify-content-center'>
+
+                    {/* <i className="bi bi-search" ></i> */}
+                    <i className="bi bi-phone" style={{
                         color: 'aliceblue',
-                        fontSize: '1rem',
-                        marginRight: '1.8rem',
+                        fontSize: '1.3rem',
+                        marginRight: '1rem',
+                        cursor: 'pointer'
+                    }} ></i>
+                    <i className="bi bi-person-circle " style={{
+                        color: 'aliceblue',
+                        fontSize: '1.3rem',
+                        marginRight: '1rem',
                         cursor: 'pointer'
                     }}></i>
                     <i className="bi bi-cart4" style={{
                         color: 'aliceblue',
                         fontSize: '1.4rem',
-                        marginRight: '1.8rem',
+                        marginRight: '1rem',
                         cursor: 'pointer'
                     }}></i>
                 </div>

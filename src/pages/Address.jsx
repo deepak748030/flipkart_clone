@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Make sure Bootstrap is included
-import ProductStatus from '../components/ProductStatus'
+import ProductStatus from '../components/ProductStatus';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 const Address = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { price, additionalPrice } = location.state || {}; // Retrieve price and additional price
+
     const [formData, setFormData] = useState({
         name: '',
         number: '',
@@ -24,6 +30,7 @@ const Address = () => {
         e.preventDefault();
         // Submit form data
         console.log('Form Data Submitted:', formData);
+        navigate('/payment', { state: { price, additionalPrice } }); // Pass prices to Payment page
     };
 
     return (
@@ -31,7 +38,11 @@ const Address = () => {
             <div className="header-container mb-3">
                 <div className="row align-items-center">
                     <div className="col-1">
-                        <button className="btn btn-link p-0" id="back_btn">
+                        <button
+                            className="btn btn-link p-0"
+                            id="back_btn"
+                            onClick={() => navigate(-1)} // Navigate back to the previous page
+                        >
                             <svg width="19" height="16" viewBox="0 0 19 16" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17.556 7.847H1M7.45 1L1 7.877l6.45 6.817" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"></path>
                             </svg>
@@ -46,7 +57,7 @@ const Address = () => {
             <ProductStatus />
             <div className='d-flex justify-content-center my-3'>
                 <img src='../discount.png' style={{
-                    height: '8rem'
+                    height: '6rem'
                 }} />
             </div>
 
@@ -152,22 +163,23 @@ const Address = () => {
                         />
                         <label htmlFor="area">Road Name, Area, Colony (Required)*</label>
                     </div>
+
+                    <button className="btn mx-3" style={{
+                        position: 'fixed',
+                        bottom: '0',
+                        left: '0',
+                        right: '0',
+                        backgroundColor: 'rgb(251, 100, 27)',
+                        height: '60px',
+                        border: 'none',
+                        color: 'white',
+                        fontSize: '1.2rem',
+                        zIndex: '100'
+                    }} type="submit"> {/* Changed to type="submit" for form submission */}
+                        Payment
+                    </button>
                 </form>
             </div>
-
-            <button className="btn mx-3" style={{
-                position: 'fixed',
-                bottom: '0',
-                left: '0',
-                right: '0',
-                backgroundColor: 'rgb(251, 100, 27)',
-                height: '60px',
-                border: 'none',
-                color: 'white',
-                fontSize: '1.2rem'
-            }} onClick={handleSubmit}>
-                Payment
-            </button>
         </div>
     );
 };

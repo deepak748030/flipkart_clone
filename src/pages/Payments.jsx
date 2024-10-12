@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocation to access passed state
 
 function Payments() {
+    const navigate = useNavigate()
+    const location = useLocation(); // Get the location object
+    const { price, additionalPrice } = location.state || { price: 0, additionalPrice: 0 }; // Destructure price and additionalPrice from state
+
     const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
 
     // Define payment URLs
-    const phonePeUrl = 'phonepe://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&mc=8099&orgid=159028';
-    const upiUrl = 'upi://pay?pa=sbipmopad.022211900285222-yc017550@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=3830789615&mc=8099&orgid=159028';
-    const paytmUrl = 'paytmmp://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=5731067652&mc=8099&orgid=159028';
-    const googlePayUrl = 'tez://upi/pay?pa=sbipmopad.022211900285222-ym543765@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=8138823478&mc=8099&orgid=159028';
+    // const phonePeUrl = 'phonepe://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&mc=8099&orgid=159028';
+    // const upiUrl = 'upi://pay?pa=sbipmopad.022211900285222-yc017550@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=3830789615&mc=8099&orgid=159028';
+    // const paytmUrl = 'paytmmp://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=5731067652&mc=8099&orgid=159028';
+    // const googlePayUrl = 'tez://upi/pay?pa=sbipmopad.022211900285222-ym543765@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=8138823478&mc=8099&orgid=159028';
 
     const handlePayment = () => {
         let paymentURL;
@@ -48,7 +53,7 @@ function Payments() {
             {/* Header with back icon and title */}
             <div className='d-flex gap-4 fs-4 my-3 align-items-center'>
                 <div style={{ cursor: 'pointer' }}>
-                    <i className="bi bi-arrow-left"></i>
+                    <i className="bi bi-arrow-left" onClick={() => { navigate(-1) }} ></i>
                 </div>
                 <div>Payment</div>
             </div>
@@ -96,7 +101,6 @@ function Payments() {
                 </div>
             </div>
 
-
             {/* Price Details */}
             <div className='mt-4'>
                 <div className='fs-4'>Price Details</div>
@@ -107,9 +111,9 @@ function Payments() {
                         <div>Amount Payable</div>
                     </div>
                     <div className='d-flex flex-column text-end gap-3'>
-                        <div>₹12499</div>
+                        <div>{price}</div>
                         <div className='text-success'>FREE DELIVERY</div>
-                        <div>₹599</div>
+                        <div>{additionalPrice}</div>
                     </div>
                 </div>
             </div>
@@ -138,11 +142,11 @@ function Payments() {
                     zIndex: 1000
                 }}>
                 <div className='d-flex flex-column'>
-                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>₹12499</div>
-                    <div style={{ color: '#fb641b', fontWeight: 'bold' }}>₹599</div>
+                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>{price}</div>
+                    <div style={{ color: '#fb641b', fontWeight: 'bold' }}>{additionalPrice}</div>
                 </div>
                 <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }}
-                // onClick={handlePayment}
+                    onClick={handlePayment} // Trigger payment on button click
                 >
                     Order Now
                 </button>

@@ -2,6 +2,10 @@
   background-color: rgba(202, 220, 238, 0.334);
 }
 
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 .carousel-indicators {
   display: flex;
   justify-content: center;

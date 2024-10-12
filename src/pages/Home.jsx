@@ -59,11 +59,11 @@ function Home() {
             </div>
 
             {/* Deal Section */}
-            <div className="container mt-3">
+            <div className="container mt-3 ">
                 <div className="row">
                     {/* Left Side - Deals of the Day */}
                     <div className="col text-center" style={{ color: 'blue' }}>
-                        <div className="fs-3">Deals of the Day</div>
+                        <div className="fs-5">Deals of the Day</div>
                         <div>
                             <i className="bi bi-stopwatch"></i> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
                         </div>

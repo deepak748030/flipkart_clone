@@ -1,32 +1,43 @@
+// src/pages/ProductPage.js
+
 import React from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams
+import { useParams, useNavigate } from 'react-router-dom'; // Import useParams and useNavigate
 import Navbar from '../components/Navbar';
 import Slider from '../components/Slider';
 import CountdownTimer from '../components/CountdownTimer'; // Import CountdownTimer
-import { useNavigate } from 'react-router-dom';
+import { data } from '../Data/Data.js'; // Import your product data
 
 function ProductPage() {
-    const { id } = useParams(); // Destructure id from params
+    const { id } = useParams(); // Get the product id from URL params
     const navigate = useNavigate();
+
+    // Find the product data based on the id
+    const product = data.find((card) => card.id === parseInt(id));
+
+    if (!product) {
+        return <div>Product not found</div>;
+    }
 
     return (
         <div style={{
             backgroundColor: ' rgba(180, 211, 239, 0.342)',
-            position: 'relative', // Set relative position to the container
-            minHeight: '100vh', // Ensure the height is sufficient for absolute positioning
-            paddingBottom: '4rem' // Give padding at the bottom to prevent content overlap
+            position: 'relative',
+            minHeight: '100vh',
+            paddingBottom: '4rem'
         }}>
             <Navbar product={'true'} />
 
             <div className='container' style={{ backgroundColor: 'white' }}>
-                <Slider />
+                <Slider images={product.sliderImages} />
                 <div className='border p-3'>
-                    <div className='mb-2 fs-5'>
-                        Amazfit GTR 3 Pro Smart Watch
+                    <div className='mb-2 ' style={{ fontSize: '1rem' }}>
+                        {product.title} {/* Dynamic product title */}
                     </div>
                     <img src='../fassured.png' alt="F-Assured" />
-                    <div className='mt-2  fs-5'>
-                        <span className='fw-bold text text-success '>90% off</span> <span className='text-muted text-decoration-line-through fs-5'>10999</span>  ₹399
+                    <div className='mt-2 fs-5 fw-bold'>
+                        <span className=' text-success'>{product.discount}</span> {/* Dynamic discount */}
+                        <span className='text-muted text-decoration-line-through fs-5 mx-2' style={{ opacity: '.6' }}>{product.price}</span>
+                        {product.additionalPrice}
                     </div>
                 </div>
 
@@ -34,7 +45,7 @@ function ProductPage() {
                 <CountdownTimer />
 
                 <div className='d-flex border p-4 justify-content-between align-items-center'>
-                    <div className='text text-center '>
+                    <div className='text text-center'>
                         <img src='http://stvoffers.shop/assets/images/replacement.png' alt="Replacement" className='productPage_icons' />
                         <div className='mt-2 productPage_icons_text'>7 days Replacement</div>
                     </div>
@@ -44,7 +55,7 @@ function ProductPage() {
                     </div>
                     <div className='text text-center'>
                         <img src='../fassured.png' alt="F-Assured" className='productPage_icons' />
-                        <div className='mt-2  productPage_icons_text'>Plus (F-Assured)</div>
+                        <div className='mt-2 productPage_icons_text'>Plus (F-Assured)</div>
                     </div>
                 </div>
             </div>
@@ -66,8 +77,7 @@ function ProductPage() {
                     cursor: 'pointer'
                 }} onClick={() => {
                     navigate('/add');
-                    console.log('hi');
-                }} >
+                }}>
                     Add to Cart
                 </button>
                 <button style={{
@@ -78,7 +88,14 @@ function ProductPage() {
                     padding: '1rem',
                     fontSize: '1.1rem',
                     cursor: 'pointer'
-                }} onClick={() => { navigate('/payment'); }} >
+                }} onClick={() => {
+                    navigate('/add', {
+                        state: {
+                            price: product.price,
+                            additionalPrice: product.additionalPrice
+                        }
+                    }); // Pass both prices to the Address page
+                }}>
                     Buy Now
                 </button>
             </div>
