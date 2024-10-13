@@ -15,10 +15,10 @@ function Payments() {
     }, [additionalPrice]);
 
     // Define payment URLs with the correct amount
-    const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}.00&cu=INR`;
-    const upiUrl = `upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}.00&cu=INR`;
-    const paytmUrl = `paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}.00&cu=INR`;
-    const googlePayUrl = `tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}.00&cu=INR`;
+    const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
+    const upiUrl = `upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
+    const paytmUrl = `paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
+    const googlePayUrl = `tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
 
     const handlePayment = () => {
         let paymentURL;
