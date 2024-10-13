@@ -14,13 +14,14 @@ function Payments() {
         setPayableAmount(amount);
     }, [additionalPrice]);
 
-    // Construct URLs for different payment methods
-    const baseURL = `rechargestore371947.rzp@icici`;
+    // Construct URLs for different payment methods with the updated UPI ID and store name
+    const upiId = `7049578457@okbizaxis`;
+    const storeName = `Raja Johri Kirana Store`;
     const paymentAmount = payableAmount;
 
-    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${baseURL}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
-    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${baseURL}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
-    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${baseURL}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${upiId}&pn=${storeName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=Paymentto${storeName.replace(/\s+/g, '')}&am=${paymentAmount}`;
+    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiId}&pn=${storeName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=Paymentto${storeName.replace(/\s+/g, '')}&am=${paymentAmount}`;
+    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${upiId}&pn=${storeName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=Paymentto${storeName.replace(/\s+/g, '')}&am=${paymentAmount}`;
 
     const handlePayment = () => {
         let paymentURL;
