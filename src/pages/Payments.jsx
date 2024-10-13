@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocation to access passed state
 
 function Payments() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const location = useLocation(); // Get the location object
     const { price, additionalPrice } = location.state || { price: 0, additionalPrice: 0 }; // Destructure price and additionalPrice from state
 
     const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
 
-    // Define payment URLs with correct amount (additionalPrice or price based on your logic)
-    const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}&cu=INR&mc=8099&orgid=159028`;
-    const upiUrl = `upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}&cu=INR&tn=3830789615&mc=8099&orgid=159028`;
-    const paytmUrl = `paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}&cu=INR&tn=5731067652&mc=8099&orgid=159028`;
-    const googlePayUrl = `tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}&cu=INR&tn=8138823478&mc=8099&orgid=159028`;
+    // Use `price` if it's greater than 0, otherwise use `additionalPrice`
+    const payableAmount = price > 0 ? additionalPrice : additionalPrice;
+
+    // Define payment URLs with the correct amount
+    const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
+    const upiUrl = `upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
+    const paytmUrl = `paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
+    const googlePayUrl = `tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
 
     const handlePayment = () => {
         let paymentURL;
@@ -113,7 +116,7 @@ function Payments() {
                     <div className='d-flex flex-column text-end gap-3'>
                         <div>{price}</div>
                         <div className='text-success'>FREE DELIVERY</div>
-                        <div>{additionalPrice}</div>
+                        <div>{payableAmount}</div>
                     </div>
                 </div>
             </div>
@@ -143,7 +146,7 @@ function Payments() {
                 }}>
                 <div className='d-flex flex-column'>
                     <div style={{ textDecoration: 'line-through', color: 'grey' }}>{price}</div>
-                    <div style={{ color: '#fb641b', fontWeight: 'bold' }}>{additionalPrice}</div>
+                    <div style={{ color: '#fb641b', fontWeight: 'bold' }}>{payableAmount}</div>
                 </div>
                 <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }}
                     onClick={handlePayment}
