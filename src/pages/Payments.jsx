@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 function Payments() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { additionalPrice } = location.state || { additionalPrice: 0 };
+    const { additionalPrice } = location.state || { additionalPrice: '0' };
 
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [payableAmount, setPayableAmount] = useState(0);
@@ -14,14 +14,24 @@ function Payments() {
         setPayableAmount(amount);
     }, [additionalPrice]);
 
-    const upiId = "11237024280@okbizaxis";
-    const merchantName = "MOHIT CYCLE STORE";
+    const upiId = "shivamkushwah135704.rzp@icici";
+    const merchantName = "Shivam Kushwah";
+    const merchantCode = "P4pyay8ZmA1Dbt";
     const paymentAmount = payableAmount;
-    const baseURL = upiId; // Using UPI ID as the base URL
 
-    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${baseURL}&pn=${merchantName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
-    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${baseURL}&pn=${merchantName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
-    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${baseURL}&pn=${merchantName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    // Generate a unique transaction reference
+    const generateTransactionReference = () => {
+        return `TR${Math.random().toString(36).substr(2, 9)}`; // Generate a random transaction reference
+    };
+
+    const transactionReference = generateTransactionReference(); // Create a transaction reference
+
+    // Construct payment URLs
+    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${upiId}&pn=${merchantName}&tr=${transactionReference}&cu=INR&mc=${merchantCode}&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+
+    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiId}&pn=${merchantName}&tr=${transactionReference}&cu=INR&mc=${merchantCode}&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+
+    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${upiId}&pn=${merchantName}&tr=${transactionReference}&cu=INR&mc=${merchantCode}&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
 
     const handlePayment = () => {
         let paymentURL;
@@ -31,7 +41,7 @@ function Payments() {
                 paymentURL = phonePayUrl;
                 break;
             case 'UPI':
-                paymentURL = gpayUrl; // Adjusted for UPI payment
+                paymentURL = gpayUrl;
                 break;
             case 'Paytm':
                 paymentURL = paytmUrl;
@@ -46,6 +56,7 @@ function Payments() {
         iframe.src = paymentURL;
         document.body.appendChild(iframe);
 
+        // Redirect to Google Play Store after 2 seconds
         setTimeout(() => {
             window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app';
         }, 2000);
@@ -54,8 +65,8 @@ function Payments() {
     return (
         <div className='px-3'>
             <div className='d-flex gap-4 fs-4 my-3 align-items-center'>
-                <div style={{ cursor: 'pointer' }}>
-                    <i className="bi bi-arrow-left" onClick={() => { navigate(-1) }}></i>
+                <div style={{ cursor: 'pointer' }} onClick={() => navigate(-1)}>
+                    <i className="bi bi-arrow-left"></i>
                 </div>
                 <div>Payment</div>
             </div>
@@ -116,7 +127,7 @@ function Payments() {
                     zIndex: 1000
                 }}>
                 <div className='d-flex flex-column'>
-                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>{price}</div>
+                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>{additionalPrice}</div>
                     <div style={{ color: '#fb641b', fontWeight: 'bold' }}>₹{payableAmount}.00</div>
                 </div>
                 <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }} onClick={handlePayment}>
