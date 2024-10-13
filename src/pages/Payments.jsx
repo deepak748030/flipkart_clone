@@ -14,11 +14,13 @@ function Payments() {
         setPayableAmount(amount);
     }, [additionalPrice]);
 
-    // Updated payment URLs with the correct UPI ID and merchant name
-    const phonePeUrl = `phonepe://pay?pa=paytmqr2810050501011rm1vid38orz@paytm&pn=Rahul%20Jatav&am=${payableAmount}.00&cu=INR`;
-    const upiUrl = `upi://pay?pa=paytmqr2810050501011rm1vid38orz@paytm&pn=Rahul%20Jatav&am=${payableAmount}.00&cu=INR`;
-    const paytmUrl = `paytmmp://pay?pa=paytmqr2810050501011rm1vid38orz@paytm&pn=Rahul%20Jatav&am=${payableAmount}.00&cu=INR`;
-    const googlePayUrl = `tez://upi/pay?pa=paytmqr2810050501011rm1vid38orz@paytm&pn=Rahul%20Jatav&am=${payableAmount}.00&cu=INR`;
+    const upiId = "7489301982@ptaxis";
+    const merchantName = "Deepak Kushwah";
+    const merchantId = "HhFKJP00391438175568";
+    const paytmUrl = `paytmmp://pay?pa=paytmqr2810050501011rm1vid38orz@paytm&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
+    const phonePeUrl = `phonepe://pay?pa=${upiId}&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
+    const googlePayUrl = `tez://upi/pay?pa=${upiId}&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
 
     const handlePayment = () => {
         let paymentURL;
@@ -55,7 +57,7 @@ function Payments() {
         <div className='px-3'>
             <div className='d-flex gap-4 fs-4 my-3 align-items-center'>
                 <div style={{ cursor: 'pointer' }}>
-                    <i className="bi bi-arrow-left" onClick={() => { navigate(-1) }} ></i>
+                    <i className="bi bi-arrow-left" onClick={() => { navigate(-1) }}></i>
                 </div>
                 <div>Payment</div>
             </div>
@@ -65,35 +67,19 @@ function Payments() {
             </div>
 
             <div className='fw-bold d-flex flex-column gap-2'>
-                <div
-                    className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setSelectedPayment('PhonePe')}
-                >
+                <div className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('PhonePe')}>
                     <img src='../phonePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="PhonePe" /> PhonePe
                 </div>
 
-                <div
-                    className={`p-3 border rounded ${selectedPayment === 'UPI' ? 'bg-light border border-black' : ''}`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setSelectedPayment('UPI')}
-                >
+                <div className={`p-3 border rounded ${selectedPayment === 'UPI' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('UPI')}>
                     <img src='../bhim.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="UPI" /> UPI
                 </div>
 
-                <div
-                    className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setSelectedPayment('Paytm')}
-                >
+                <div className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Paytm')}>
                     <img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Paytm" /> Paytm
                 </div>
 
-                <div
-                    className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setSelectedPayment('Google Pay')}
-                >
+                <div className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Google Pay')}>
                     <img src='../googlePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Google Pay" /> Google Pay
                 </div>
             </div>
@@ -139,9 +125,7 @@ function Payments() {
                     <div style={{ textDecoration: 'line-through', color: 'grey' }}>{price}</div>
                     <div style={{ color: '#fb641b', fontWeight: 'bold' }}>₹{payableAmount}.00</div>
                 </div>
-                <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }}
-                    onClick={handlePayment}
-                >
+                <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }} onClick={handlePayment}>
                     Order Now
                 </button>
             </div>
