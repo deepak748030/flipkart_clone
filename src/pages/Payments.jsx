@@ -14,10 +14,10 @@ function Payments() {
     // const paytmUrl = 'paytmmp://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=5731067652&mc=8099&orgid=159028';
     // const googlePayUrl = 'tez://upi/pay?pa=sbipmopad.022211900285222-ym543765@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=8138823478&mc=8099&orgid=159028';
 
-    const phonePeUrl = 'phonepe://pay?pa=BCR2DN4TS3GZRKD5@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&mc=8099&orgid=159028';
-    const upiUrl = 'upi://pay?pa=BCR2DN4TS3GZRKD5@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&tn=3830789615&mc=8099&orgid=159028';
-    const paytmUrl = 'paytmmp://pay?pa=BCR2DN4TS3GZRKD5@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&tn=5731067652&mc=8099&orgid=159028';
-    const googlePayUrl = 'tez://upi/pay?pa=BCR2DN4TS3GZRKD5@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&tn=8138823478&mc=8099&orgid=159028';
+    const phonePeUrl = 'phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&mc=8099&orgid=159028';
+    const upiUrl = 'upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&tn=3830789615&mc=8099&orgid=159028';
+    const paytmUrl = 'paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&tn=5731067652&mc=8099&orgid=159028';
+    const googlePayUrl = 'tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=599.00&cu=INR&tn=8138823478&mc=8099&orgid=159028';
 
     const handlePayment = () => {
         let paymentURL;
