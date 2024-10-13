@@ -60,6 +60,10 @@ function ProductPage() {
                 </div>
             </div>
 
+            <div className='container py-1'>
+                <img src={product.info} className='w-100' />
+            </div>
+
             {/* Add to Cart and Buy Now Buttons */}
             <div style={{
                 position: 'fixed',
