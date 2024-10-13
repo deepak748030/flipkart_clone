@@ -8,17 +8,11 @@ function Payments() {
 
     const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
 
-    // Define payment URLs
-    // const phonePeUrl = 'phonepe://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&mc=8099&orgid=159028';
-    // const upiUrl = 'upi://pay?pa=sbipmopad.022211900285222-yc017550@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=3830789615&mc=8099&orgid=159028';
-    // const paytmUrl = 'paytmmp://pay?pa=sbipmopad.022211900285222-yc017549@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=5731067652&mc=8099&orgid=159028';
-    // const googlePayUrl = 'tez://upi/pay?pa=sbipmopad.022211900285222-ym543765@sbipay&pn=Vishal%20Kirana%20Store&am=599.00&cu=INR&tn=8138823478&mc=8099&orgid=159028';
-
+    // Define payment URLs with correct amount (additionalPrice or price based on your logic)
     const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}.00&cu=INR&mc=8099&orgid=159028`;
     const upiUrl = `upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}.00&cu=INR&tn=3830789615&mc=8099&orgid=159028`;
     const paytmUrl = `paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}.00&cu=INR&tn=5731067652&mc=8099&orgid=159028`;
     const googlePayUrl = `tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${additionalPrice}.00&cu=INR&tn=8138823478&mc=8099&orgid=159028`;
-
 
     const handlePayment = () => {
         let paymentURL;
