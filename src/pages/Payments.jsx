@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 function Payments() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { additionalPrice, price } = location.state || { additionalPrice: 0 };
+    const { additionalPrice } = location.state || { additionalPrice: 0 };
 
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [payableAmount, setPayableAmount] = useState(0);
@@ -14,29 +14,27 @@ function Payments() {
         setPayableAmount(amount);
     }, [additionalPrice]);
 
-    const upiId = "7489301982@ptaxis";
-    const merchantName = "Deepak Kushwah";
-    const merchantId = "HhFKJP00391438175568";
-    const paytmUrl = `paytmmp://pay?pa=paytmqr2810050501011rm1vid38orz@paytm&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
-    const phonePeUrl = `phonepe://pay?pa=${upiId}&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
-    const googlePayUrl = `tez://upi/pay?pa=${upiId}&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
-    const upiUrl = `upi://pay?pa=${upiId}&pn=${merchantName}&am=${payableAmount}.00&cu=INR`;
+    const upiId = "11237024280@okbizaxis";
+    const merchantName = "MOHIT CYCLE STORE";
+    const paymentAmount = payableAmount;
+    const baseURL = upiId; // Using UPI ID as the base URL
+
+    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${baseURL}&pn=${merchantName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${baseURL}&pn=${merchantName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${baseURL}&pn=${merchantName}&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
 
     const handlePayment = () => {
         let paymentURL;
 
         switch (selectedPayment) {
             case 'PhonePe':
-                paymentURL = phonePeUrl;
+                paymentURL = phonePayUrl;
                 break;
             case 'UPI':
-                paymentURL = upiUrl;
+                paymentURL = gpayUrl; // Adjusted for UPI payment
                 break;
             case 'Paytm':
                 paymentURL = paytmUrl;
-                break;
-            case 'Google Pay':
-                paymentURL = googlePayUrl;
                 break;
             default:
                 alert('Please select a payment method');
@@ -77,10 +75,6 @@ function Payments() {
 
                 <div className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Paytm')}>
                     <img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Paytm" /> Paytm
-                </div>
-
-                <div className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Google Pay')}>
-                    <img src='../googlePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Google Pay" /> Google Pay
                 </div>
             </div>
 
