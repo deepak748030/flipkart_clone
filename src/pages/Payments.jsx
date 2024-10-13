@@ -4,12 +4,12 @@ import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocati
 function Payments() {
     const navigate = useNavigate();
     const location = useLocation(); // Get the location object
-    const { price, additionalPrice } = location.state || { price: 0, additionalPrice: 0 }; // Destructure price and additionalPrice from state
+    const { additionalPrice } = location.state || { additionalPrice: 0 }; // Destructure only additionalPrice from state
 
     const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
 
-    // Use `price` if it's greater than 0, otherwise use `additionalPrice`
-    const payableAmount = price > 0 ? additionalPrice : additionalPrice;
+    // Set payableAmount to additionalPrice only
+    const payableAmount = additionalPrice;
 
     // Define payment URLs with the correct amount
     const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${payableAmount}&cu=INR`;
@@ -114,7 +114,7 @@ function Payments() {
                         <div>Amount Payable</div>
                     </div>
                     <div className='d-flex flex-column text-end gap-3'>
-                        <div>{price}</div>
+                        <div>{additionalPrice}</div>
                         <div className='text-success'>FREE DELIVERY</div>
                         <div>{payableAmount}</div>
                     </div>
@@ -145,7 +145,7 @@ function Payments() {
                     zIndex: 1000
                 }}>
                 <div className='d-flex flex-column'>
-                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>{price}</div>
+                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>{additionalPrice}</div>
                     <div style={{ color: '#fb641b', fontWeight: 'bold' }}>{payableAmount}</div>
                 </div>
                 <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }}
