@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { data } from '../Data/Data.js'; // Import the product data
+import { data } from '../Data/data.js'; // Import the product data
 
 function Card() {
     const navigate = useNavigate();
