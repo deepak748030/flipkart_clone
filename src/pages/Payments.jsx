@@ -146,7 +146,7 @@ function Payments() {
                     <div style={{ color: '#fb641b', fontWeight: 'bold' }}>{additionalPrice}</div>
                 </div>
                 <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }}
-                    onClick={handlePayment} // Trigger payment on button click
+                    onClick={handlePayment}
                 >
                     Order Now
                 </button>

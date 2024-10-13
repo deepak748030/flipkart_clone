@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'; // Import useParams a
 import Navbar from '../components/Navbar';
 import Slider from '../components/Slider';
 import CountdownTimer from '../components/CountdownTimer'; // Import CountdownTimer
-import { data } from '../Data/Data.js'; // Import your product data
+import { data } from '../Data/data.js'; // Import your product data
 
 function ProductPage() {
     const { id } = useParams(); // Get the product id from URL params
