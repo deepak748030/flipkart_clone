@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocation to access passed state
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Payments() {
     const navigate = useNavigate();
-    const location = useLocation(); // Get the location object
-    const { additionalPrice, price } = location.state || { additionalPrice: 0 }; // Destructure only additionalPrice from state
+    const location = useLocation();
+    const { additionalPrice, price } = location.state || { additionalPrice: 0 };
 
-    const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
-    const [payableAmount, setPayableAmount] = useState(0); // Initialize payableAmount state
+    const [selectedPayment, setSelectedPayment] = useState(null);
+    const [payableAmount, setPayableAmount] = useState(0);
 
-    // Set payableAmount to additionalPrice only
     useEffect(() => {
-        // Remove '₹' and any commas, then parse as integer
         const amount = parseInt(additionalPrice.replace(/[₹,]/g, '').trim(), 10);
         setPayableAmount(amount);
     }, [additionalPrice]);
@@ -25,35 +23,40 @@ function Payments() {
     const handlePayment = () => {
         let paymentURL;
 
-        // Determine the payment URL based on the selected payment method
-        switch (selectedPayment) {
-            case 'PhonePe':
-                paymentURL = phonePeUrl;
-                break;
-            case 'UPI':
-                paymentURL = upiUrl;
-                break;
-            case 'Paytm':
-                paymentURL = paytmUrl;
-                break;
-            case 'Google Pay':
-                paymentURL = googlePayUrl;
-                break;
-            default:
-                alert('Please select a payment method');
-                return;
+        // Ensure a payment method is selected
+        if (!selectedPayment) {
+            alert('Please select a payment method');
+            return;
         }
 
-        // Create an invisible iframe to trigger the payment deep link
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = paymentURL;
-        document.body.appendChild(iframe);
+        // Trigger payment URL only on button click
+        const userConfirmed = confirm(`Proceed to pay ₹${payableAmount} using ${selectedPayment}?`);
+        if (userConfirmed) {
+            // Redirect the user to the payment URL
+            switch (selectedPayment) {
+                case 'PhonePe':
+                    paymentURL = phonePeUrl;
+                    break;
+                case 'UPI':
+                    paymentURL = upiUrl;
+                    break;
+                case 'Paytm':
+                    paymentURL = paytmUrl;
+                    break;
+                case 'Google Pay':
+                    paymentURL = googlePayUrl;
+                    break;
+                default:
+                    return;
+            }
 
-        // Fallback: If the payment app is not installed, redirect to Play Store after 2 seconds
-        setTimeout(() => {
-            window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app'; // Change this based on the payment app
-        }, 2000);
+            window.location.href = paymentURL;
+
+            // Fallback: If payment app is not installed, redirect to Play Store after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app'; // Adjust URL based on selected app
+            }, 2000);
+        }
     };
 
     return (
@@ -61,7 +64,7 @@ function Payments() {
             {/* Header with back icon and title */}
             <div className='d-flex gap-4 fs-4 my-3 align-items-center'>
                 <div style={{ cursor: 'pointer' }}>
-                    <i className="bi bi-arrow-left" onClick={() => { navigate(-1) }} ></i>
+                    <i className="bi bi-arrow-left" onClick={() => { navigate(-1) }}></i>
                 </div>
                 <div>Payment</div>
             </div>
@@ -72,7 +75,7 @@ function Payments() {
             </div>
 
             <div className='fw-bold d-flex flex-column gap-2'>
-                {/* PhonePe Option */}
+                {/* Payment method options */}
                 <div
                     className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`}
                     style={{ cursor: 'pointer' }}
@@ -81,7 +84,6 @@ function Payments() {
                     <img src='../phonePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="PhonePe" /> PhonePe
                 </div>
 
-                {/* UPI Option */}
                 <div
                     className={`p-3 border rounded ${selectedPayment === 'UPI' ? 'bg-light border border-black' : ''}`}
                     style={{ cursor: 'pointer' }}
@@ -90,7 +92,6 @@ function Payments() {
                     <img src='../bhim.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="UPI" /> UPI
                 </div>
 
-                {/* Paytm Option */}
                 <div
                     className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`}
                     style={{ cursor: 'pointer' }}
@@ -99,7 +100,6 @@ function Payments() {
                     <img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Paytm" /> Paytm
                 </div>
 
-                {/* Google Pay Option */}
                 <div
                     className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`}
                     style={{ cursor: 'pointer' }}
