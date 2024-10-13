@@ -9,13 +9,14 @@ function Payments() {
     const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
 
     // Set payableAmount to additionalPrice only
-    const payableAmount = additionalPrice;
+    const [amount, setAmount] = useState()
+    setAmount(additionalPrice)
 
     // Define payment URLs with the correct amount
-    const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=249.00&cu=INR`;
-    const upiUrl = `upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=249.00&cu=INR`;
-    const paytmUrl = `paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=249.00&cu=INR`;
-    const googlePayUrl = `tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=249.00&cu=INR`;
+    const phonePeUrl = `phonepe://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${amount}.00&cu=INR`;
+    const upiUrl = `upi://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${amount}.00&cu=INR`;
+    const paytmUrl = `paytmmp://pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${amount}.00&cu=INR`;
+    const googlePayUrl = `tez://upi/pay?pa=7049578457@okbizaxis&pn=Raja%20Jatav&am=${amount}.00&cu=INR`;
 
 
 
