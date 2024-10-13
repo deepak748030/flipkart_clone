@@ -15,7 +15,7 @@ function Payments() {
     }, [additionalPrice]);
 
     // Construct URLs for different payment methods
-    const baseURL = `rechargestore371947.rzp@icici`;
+    const baseURL = `shivamkushwah135704.rzp@icici`;
     const paymentAmount = payableAmount;
 
     const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${baseURL}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
