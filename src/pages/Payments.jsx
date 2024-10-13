@@ -18,9 +18,9 @@ function Payments() {
     const baseURL = `shivamkushwah135704.rzp@icici`;
     const paymentAmount = payableAmount;
 
-    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${baseURL}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
-    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${baseURL}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
-    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${baseURL}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
 
     const handlePayment = () => {
         let paymentURL;
