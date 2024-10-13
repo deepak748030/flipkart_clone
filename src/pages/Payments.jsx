@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocati
 function Payments() {
     const navigate = useNavigate();
     const location = useLocation(); // Get the location object
-    const { additionalPrice } = location.state || { additionalPrice: 0 }; // Destructure only additionalPrice from state
+    const { additionalPrice, price } = location.state || { additionalPrice: 0 }; // Destructure only additionalPrice from state
 
     const [selectedPayment, setSelectedPayment] = useState(null); // State to hold selected payment method
     const [payableAmount, setPayableAmount] = useState(0); // Initialize payableAmount state
@@ -150,7 +150,7 @@ function Payments() {
                     zIndex: 1000
                 }}>
                 <div className='d-flex flex-column'>
-                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>{additionalPrice}</div>
+                    <div style={{ textDecoration: 'line-through', color: 'grey' }}>{price}</div>
                     <div style={{ color: '#fb641b', fontWeight: 'bold' }}>₹{payableAmount}.00</div>
                 </div>
                 <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }}
