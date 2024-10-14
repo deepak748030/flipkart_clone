@@ -18,7 +18,6 @@ function Payments() {
     const baseURL = `shivamkushwah135704.rzp@icici`;
     const paymentAmount = payableAmount;
 
-    const gpayUrl = `tez://upi/pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
     const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
     const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
 
@@ -26,9 +25,6 @@ function Payments() {
         let paymentURL;
 
         switch (selectedPayment) {
-            case 'Google Pay':
-                paymentURL = gpayUrl;
-                break;
             case 'PhonePe':
                 paymentURL = phonePayUrl;
                 break;
@@ -67,9 +63,6 @@ function Payments() {
 
             <div className='fw-bold d-flex flex-column gap-2'>
                 {/* Payment Options */}
-                <div className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Google Pay')}>
-                    <img src='../googlePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Google Pay" /> Google Pay
-                </div>
                 <div className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('PhonePe')}>
                     <img src='../phonePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="PhonePe" /> PhonePe
                 </div>
