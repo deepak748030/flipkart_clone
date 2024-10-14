@@ -8,7 +8,7 @@ export const data = [
         image: "https://rc.super-deel.site/uffr/media/polls/images/download_1FyV89M.jpg",
         discount: "99% Off",
         price: "₹1,44,900",
-        additionalPrice: "₹1.00",
+        additionalPrice: "₹499.00",
         sliderImages: [
             "https://rc.super-deel.site/uffr/media/polls/images/download_1FyV89M.jpg",
             "https://rc.super-deel.site/uffr/media/polls/images/product-29-09-2023-169600969161nzPMNY8zL._SL1500_0MzntAu.jpg"
