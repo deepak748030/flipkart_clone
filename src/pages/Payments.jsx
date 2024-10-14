@@ -9,17 +9,17 @@ function Payments() {
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [payableAmount, setPayableAmount] = useState(0);
 
+    const upiID = "rechargestore371947.rzp@icici"; // UPI ID to use for payments
+
     useEffect(() => {
         const amount = parseInt(additionalPrice.replace(/[₹,]/g, '').trim(), 10);
         setPayableAmount(amount);
     }, [additionalPrice]);
 
-    // Construct URLs for different payment methods
-    const baseURL = `shivamkushwah135704.rzp@icici`;
-    const paymentAmount = payableAmount;
-
-    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
-    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${baseURL}&pn=Shivamkuswah&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${paymentAmount}`;
+    // Payment URLs
+    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
+    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
+    const gPayUrl = `tez://upi/pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
 
     const handlePayment = () => {
         let paymentURL;
@@ -30,6 +30,9 @@ function Payments() {
                 break;
             case 'Paytm':
                 paymentURL = paytmUrl;
+                break;
+            case 'Google Pay':
+                paymentURL = gPayUrl;
                 break;
             default:
                 alert('Please select a payment method');
@@ -44,7 +47,7 @@ function Payments() {
 
         // Fallback if the payment app is not installed
         setTimeout(() => {
-            window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app'; // Adjust based on selected payment app
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app'; // Change based on the selected payment app
         }, 2000);
     };
 
@@ -69,6 +72,9 @@ function Payments() {
                 <div className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Paytm')}>
                     <img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Paytm" /> Paytm
                 </div>
+                <div className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Google Pay')}>
+                    <img src='../gpay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Google Pay" /> Google Pay
+                </div>
             </div>
 
             <div className='mt-4'>
@@ -80,7 +86,7 @@ function Payments() {
                         <div>Amount Payable</div>
                     </div>
                     <div className='d-flex flex-column text-end gap-3'>
-                        <div>{additionalPrice}</div>
+                        <div>{price}</div>
                         <div className='text-success'>FREE DELIVERY</div>
                         <div>₹{payableAmount}.00</div>
                     </div>
