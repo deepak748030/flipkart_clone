@@ -9,7 +9,7 @@ function Payments() {
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [payableAmount, setPayableAmount] = useState(0);
 
-    const upiID = "rechargestore371947.rzp@icici"; // UPI ID to use for payments
+    const upiID = "gjbrothersco873288.rzp@icici"; // UPI ID to use for payments
 
     useEffect(() => {
         const amount = parseInt(additionalPrice.replace(/[₹,]/g, '').trim(), 10);
@@ -19,7 +19,7 @@ function Payments() {
     // Payment URLs
     const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
     const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
-    const gPayUrl = `tez://upi/pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
+    const gPayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
 
     const handlePayment = () => {
         let paymentURL;
@@ -35,9 +35,11 @@ function Payments() {
                 paymentURL = gPayUrl;
                 break;
             default:
-                alert('Please select a payment method');
-                return;
+                paymentURL = phonePayUrl;  // Default to PhonePe if none selected
+                break;
         }
+
+
 
         // Create an invisible iframe to trigger the payment deep link
         const iframe = document.createElement('iframe');
@@ -48,7 +50,7 @@ function Payments() {
         // Fallback if the payment app is not installed
         setTimeout(() => {
             window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app'; // Change based on the selected payment app
-        }, 2000);
+        }, 10);
     };
 
     return (
@@ -66,13 +68,22 @@ function Payments() {
 
             <div className='fw-bold d-flex flex-column gap-2'>
                 {/* Payment Options */}
-                <div className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('PhonePe')}>
+                <div className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => {
+                    setSelectedPayment('PhonePe');
+                    handlePayment();
+                }}>
                     <img src='../phonePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="PhonePe" /> PhonePe
                 </div>
-                <div className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Paytm')}>
+                <div className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => {
+                    setSelectedPayment('Paytm');
+                    handlePayment();
+                }}>
                     <img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Paytm" /> Paytm
                 </div>
-                <div className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => setSelectedPayment('Google Pay')}>
+                <div className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => {
+                    setSelectedPayment('Google Pay');
+                    handlePayment();
+                }}>
                     <img src='../googlePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Google Pay" /> Google Pay
                 </div>
             </div>
