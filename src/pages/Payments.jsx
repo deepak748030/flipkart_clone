@@ -9,7 +9,8 @@ function Payments() {
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [payableAmount, setPayableAmount] = useState(0);
 
-    const upiID = "gjbrothersco873288.rzp@icici"; // UPI ID to use for payments
+    // Updated UPI ID
+    const upiID = "Mswipe.2500012225136182@kotak"; // Updated UPI ID to use for payments
 
     useEffect(() => {
         const amount = parseInt(additionalPrice.replace(/[₹,]/g, '').trim(), 10);
@@ -17,14 +18,14 @@ function Payments() {
     }, [additionalPrice]);
 
     // Payment URLs
-    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
-    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
-    const gPayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=RZPOpmeJbqqnEXEJbqrv2&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
+    const phonePayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=UPI000165570921&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
+    const paytmUrl = `paytmmp://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=UPI000165570921&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
+    const gPayUrl = `phonepe://pay?ver=01&mode=19&pa=${upiID}&pn=Rechargestore&tr=UPI000165570921&cu=INR&mc=8241&qrMedium=04&tn=PaymenttoRechargestore&am=${payableAmount}`;
 
-    const handlePayment = () => {
+    const handlePayment = (paymentType) => {
         let paymentURL;
 
-        switch (selectedPayment) {
+        switch (paymentType) {
             case 'PhonePe':
                 paymentURL = phonePayUrl;
                 break;
@@ -39,18 +40,14 @@ function Payments() {
                 break;
         }
 
-
-
         // Create an invisible iframe to trigger the payment deep link
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
         iframe.src = paymentURL;
         document.body.appendChild(iframe);
 
-        // Fallback if the payment app is not installed
-        setTimeout(() => {
-            window.location.href = 'https://play.google.com/store/apps/details?id=com.phonepe.app'; // Change based on the selected payment app
-        }, 10);
+        // You can also open the link in a new tab if needed, or handle the redirect as required
+        window.location.href = paymentURL;
     };
 
     return (
@@ -70,19 +67,19 @@ function Payments() {
                 {/* Payment Options */}
                 <div className={`p-3 border rounded ${selectedPayment === 'PhonePe' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => {
                     setSelectedPayment('PhonePe');
-                    handlePayment();
+                    handlePayment('PhonePe');
                 }}>
                     <img src='../phonePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="PhonePe" /> PhonePe
                 </div>
                 <div className={`p-3 border rounded ${selectedPayment === 'Paytm' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => {
                     setSelectedPayment('Paytm');
-                    handlePayment();
+                    handlePayment('Paytm');
                 }}>
                     <img src='../payTm.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Paytm" /> Paytm
                 </div>
                 <div className={`p-3 border rounded ${selectedPayment === 'Google Pay' ? 'bg-light border border-black' : ''}`} style={{ cursor: 'pointer' }} onClick={() => {
                     setSelectedPayment('Google Pay');
-                    handlePayment();
+                    handlePayment('Google Pay');
                 }}>
                     <img src='../googlePay.png' className='mx-2 fs-5' style={{ height: '2rem' }} alt="Google Pay" /> Google Pay
                 </div>
@@ -118,7 +115,7 @@ function Payments() {
                     <div style={{ textDecoration: 'line-through', color: 'grey' }}>{price}</div>
                     <div style={{ color: '#fb641b', fontWeight: 'bold' }}>₹{payableAmount}.00</div>
                 </div>
-                <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }} onClick={handlePayment}>
+                <button className='btn btn-warning mx-4 px-4' style={{ backgroundColor: '#ffc107' }} onClick={() => handlePayment(selectedPayment)}>
                     Order Now
                 </button>
             </div>
